@@ -2,17 +2,21 @@ import argparse
 from collections import Counter
 from matplotlib import pyplot as plt
 
-
 def get_ranks_and_frequencies(infile):
     """Produces a list of rank, frequency pairs for each word in a text file
     :param infile: a text file
     :return: a list containing rank, frequency pairs for each word
     """
-    with open(infile) as f:
+    with open(infile, encoding="utf-8") as f:
         contents = f.read()
     c = Counter(contents.split())
     # TODO: create a list called ranks_and_frequencies that stores (rank,
     # frequency) pairs for each word in the file
+    ranks_and_frequencies = []
+
+    for rank, freq in enumerate(c.most_common(), start=1):
+        ranks_and_frequencies.append((rank, freq))
+
     return ranks_and_frequencies
 
 
@@ -27,7 +31,19 @@ def plot(infile):
     # TODO: use the (rank, frequency) pairs to plot the data
     # and use a log scale on both axes
     # You will display the plot using plt.show(), which is already written
+    rank = []
+    freq = []
 
+    for r in ranks_and_frequencies:
+        rank.append(r[0])
+
+    for f in ranks_and_frequencies:
+        freq.append(f[1][1])
+
+    plt.title("Eamon Maloney")
+    plt.loglog(rank, freq, label="Eamon Maloney")
+    plt.xlabel("Rank")
+    plt.ylabel("Frequency of Occurrence")
     plt.show()
 
 
